@@ -3,7 +3,7 @@ const helmet = require('helmet');
 
 const app = express();
 
-app.use(helmet.hidePoweredBy());
+/* app.use(helmet.hidePoweredBy());
 app.use(helmet.frameguard({action:'deny'}));
 app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
@@ -31,7 +31,19 @@ app.use(
       // e.g., styleSrc, fontSrc, frameSrc, mediaSrc, etc.
     },
   })
-);
+); */
+app.use(helmet({
+  frameguard: {         // configure
+    action: 'deny'
+  },
+  contentSecurityPolicy: {    // enable and configure
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ['style.com'],
+    }
+  },
+  dnsPrefetchControl: false     // disable
+}))
 
 
 
