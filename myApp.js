@@ -15,6 +15,7 @@ app.use(
     force: true,
   })
 );
+app.use(helmet.dnsPrefetchControl());
 
 
 
