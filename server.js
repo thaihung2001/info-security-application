@@ -4,6 +4,7 @@
  *******************************************/
 
 var express = require("express");
+const bcrypt = require('bcrypt');
 var app = express();
 app.disable("x-powered-by");
 var fs = require("fs");
