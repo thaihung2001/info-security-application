@@ -18,7 +18,20 @@ app.use(
 app.use(helmet.dnsPrefetchControl());
 app.use(helmet.noCache());
 
-
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      // Set defaultSrc to trust only your website address by default
+      defaultSrc: ["'self'"],
+      
+      // Set scriptSrc to only allow scripts from your website ('self') and 'trusted-cdn.com'
+      scriptSrc: ["'self'", 'trusted-cdn.com'],
+      
+      // Add other directives as needed
+      // e.g., styleSrc, fontSrc, frameSrc, mediaSrc, etc.
+    },
+  })
+);
 
 
 
