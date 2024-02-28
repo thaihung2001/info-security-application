@@ -10,6 +10,25 @@ app.disable("x-powered-by");
 var fs = require("fs");
 var path = require("path");
 
+app.post('/hash', (req, res) => {
+  const plaintextPassword = req.body.password;
+
+  // Generate a salt and hash the password using BCrypt
+  bcrypt.hash(plaintextPassword, saltRounds, (err, hash) => {
+    if (err) {
+      console.error('Error hashing password:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      // Log the salt and hashed password to the console
+      console.log('Salt:', hash.substring(0, 29)); // First 22 characters is the salt
+      console.log('Hashed Password:', hash.substring(29)); // The rest is the hashed password
+
+      // Send a success message to the client
+      res.send('Password hashed and salted successfully!');
+    }
+  });
+});
+
 app.use(function (req, res, next) {
   res.set({
     "Access-Control-Allow-Origin": "*",
