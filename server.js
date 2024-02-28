@@ -10,6 +10,7 @@ app.disable("x-powered-by");
 var fs = require("fs");
 var path = require("path");
 
+const saltRounds = 12; // Considered very secure at this time
 app.post('/hash', (req, res) => {
   const plaintextPassword = req.body.password;
 
